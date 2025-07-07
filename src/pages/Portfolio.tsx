@@ -53,13 +53,13 @@ const Portfolio = () => {
     },
   ];
 
-  const categories = [
-    { name: 'Literature', count: 3, color: 'bg-blue-500' },
-    { name: 'Spiritual', count: 2, color: 'bg-purple-500' },
-    { name: 'Philosophy', count: 1, color: 'bg-green-500' },
-    { name: 'Astrology', count: 1, color: 'bg-yellow-500' },
-    { name: 'Devotional', count: 1, color: 'bg-pink-500' },
-  ];
+  // const categories = [
+  //   { name: 'Literature', count: 3, color: 'bg-blue-500' },
+  //   { name: 'Spiritual', count: 2, color: 'bg-purple-500' },
+  //   { name: 'Philosophy', count: 1, color: 'bg-green-500' },
+  //   { name: 'Astrology', count: 1, color: 'bg-yellow-500' },
+  //   { name: 'Devotional', count: 1, color: 'bg-pink-500' },
+  // ];
 
   return (
     <div className="py-16">
@@ -75,7 +75,7 @@ const Portfolio = () => {
         </div>
 
         {/* Categories Overview */}
-        <section className="mb-16">
+        {/* <section className="mb-16">
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h2 className="text-2xl font-serif font-bold text-gray-800 mb-6 text-center">
               Our Work Spans Multiple Categories
@@ -92,7 +92,7 @@ const Portfolio = () => {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Book Translations */}
         <section className="mb-16">
