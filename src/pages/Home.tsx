@@ -69,7 +69,7 @@ const Home = () => {
                 to="/contact"
                 className="bg-white hover:bg-gray-50 text-terracotta-600 px-8 py-4 rounded-lg font-semibold border-2 border-terracotta-600 transition-colors duration-200"
               >
-                Contact Us
+                Get in touch
               </Link>
             </div>
           </div>

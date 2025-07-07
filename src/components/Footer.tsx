@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Languages, Mail, MessageCircle, Phone } from 'lucide-react';
+import { Languages, Mail, MessageCircle, } from 'lucide-react';
 
 const Footer = () => {
   return (
