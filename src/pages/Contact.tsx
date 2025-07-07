@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, MessageCircle, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, MessageCircle, Phone, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,18 +10,100 @@ const Contact = () => {
     message: '',
   });
 
-  const handleChange = (e) => {
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    service: '',
+    message: '',
+  });
+
+  const [submitStatus, setSubmitStatus] = useState({
+    isSubmitting: false,
+    isSuccess: false,
+    isError: false,
+    message: ''
+  });
+
+  // Replace this with your Google Apps Script web app URL
+  // const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzarV6NqAdYTkVEYCmeBKW1HsSKKALQdh42q6bGgdizXvKa4Rt3Tvz16vFoOcgyVj_1Fw/exec';
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyrwqE5pBCneMrHAG6O6EKiBJZ1EBZan1hScUfQG0USXT4vU-4ZHYzWCum8mX612YdstQ/exec'; 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    if (name === 'phone') {
+      // Only allow digits
+      const digitsOnly = value.replace(/\D/g, '');
+      setFormData({
+        ...formData,
+        [name]: digitsOnly,
+      });
+      setErrors({ ...errors, [name]: '' });
+      return;
+    }
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+    setErrors({ ...errors, [name]: '' });
   };
 
-  const handleSubmit = (e) => {
+  const validate = () => {
+    const newErrors: typeof errors = { name: '', email: '', phone: '', service: '', message: '' };
+    if (formData.name.trim().length < 3) {
+      newErrors.name = 'Name must be at least 3 characters long.';
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address.';
+    }
+    if (!formData.phone.trim() || formData.phone.length !== 10) {
+      newErrors.phone = 'Phone number must be exactly 10 digits.';
+    }
+    if (!formData.service) {
+      newErrors.service = 'Please select a service.';
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message cannot be empty.';
+    }
+    setErrors(newErrors);
+    return Object.values(newErrors).every((v) => !v);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // You can integrate with your preferred form handling service
+    if (!validate()) return;
+    setSubmitStatus({ isSubmitting: true, isSuccess: false, isError: false, message: '' });
+    try {
+      const form = new FormData();
+      form.append('name', formData.name);
+      form.append('email', formData.email);
+      form.append('phone', formData.phone);
+      form.append('service', formData.service);
+      form.append('message', formData.message);
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: form,
+      });
+      const result = await response.json();
+      if (result.result === 'success') {
+        setSubmitStatus({
+          isSubmitting: false,
+          isSuccess: true,
+          isError: false,
+          message: 'Thank you! Your message has been sent successfully.'
+        });
+        setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch {
+      setSubmitStatus({
+        isSubmitting: false,
+        isSuccess: false,
+        isError: true,
+        message: 'Sorry, there was an error sending your message. Please try again.'
+      });
+    }
   };
 
   return (
@@ -47,8 +129,8 @@ const Contact = () => {
             {/* Contact Methods */}
             <div className="space-y-6 mb-8">
               <div className="flex items-center">
-                <div className="bg-terracotta-100 p-3 rounded-full mr-4">
-                  <Mail className="h-6 w-6 text-terracotta-600" />
+                <div className="bg-orange-100 p-3 rounded-full mr-4">
+                  <Mail className="h-6 w-6 text-orange-600" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-800">Email</h3>
@@ -104,7 +186,27 @@ const Contact = () => {
                 Send us a Message
               </h2>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Status Messages */}
+              {submitStatus.isSuccess && (
+                <div className="mb-6 p-4 bg-green-50 border-l-4 border-green-600 rounded-lg">
+                  <div className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-600 mr-2" />
+                    <p className="text-green-800">{submitStatus.message}</p>
+                  </div>
+                </div>
+              )}
+
+              {submitStatus.isError && (
+                <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-600 rounded-lg">
+                  <div className="flex items-center">
+                    <AlertCircle className="h-5 w-5 text-red-600 mr-2" />
+                    <p className="text-red-800">{submitStatus.message}</p>
+                  </div>
+                </div>
+              )}
+              
+              {/* Form Container */}
+              <div className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                     Name *
@@ -116,9 +218,11 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-600 focus:border-transparent transition-colors duration-200"
+                    disabled={submitStatus.isSubmitting}
+                    className={`w-full px-4 py-3 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-orange-600 focus:border-transparent transition-colors duration-200 disabled:opacity-50`}
                     placeholder="Your full name"
                   />
+                  {errors.name && <p className="text-red-600 text-sm mt-1">{errors.name}</p>}
                 </div>
 
                 <div>
@@ -132,9 +236,11 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-600 focus:border-transparent transition-colors duration-200"
+                    disabled={submitStatus.isSubmitting}
+                    className={`w-full px-4 py-3 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-orange-600 focus:border-transparent transition-colors duration-200 disabled:opacity-50`}
                     placeholder="your@email.com"
                   />
+                  {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email}</p>}
                 </div>
 
                 <div>
@@ -147,9 +253,14 @@ const Contact = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-600 focus:border-transparent transition-colors duration-200"
+                    required
+                    maxLength={10}
+                    pattern="[0-9]{10}"
+                    disabled={submitStatus.isSubmitting}
+                    className={`w-full px-4 py-3 border ${errors.phone ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-orange-600 focus:border-transparent transition-colors duration-200 disabled:opacity-50`}
                     placeholder="Your phone number"
                   />
+                  {errors.phone && <p className="text-red-600 text-sm mt-1">{errors.phone}</p>}
                 </div>
 
                 <div>
@@ -161,7 +272,9 @@ const Contact = () => {
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-600 focus:border-transparent transition-colors duration-200"
+                    required
+                    disabled={submitStatus.isSubmitting}
+                    className={`w-full px-4 py-3 border ${errors.service ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-orange-600 focus:border-transparent transition-colors duration-200 disabled:opacity-50`}
                   >
                     <option value="">Select a service</option>
                     <option value="translation">Translation</option>
@@ -170,6 +283,7 @@ const Contact = () => {
                     <option value="storytelling">Storytelling & Art</option>
                     <option value="other">Other</option>
                   </select>
+                  {errors.service && <p className="text-red-600 text-sm mt-1">{errors.service}</p>}
                 </div>
 
                 <div>
@@ -182,26 +296,40 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
+                    disabled={submitStatus.isSubmitting}
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-600 focus:border-transparent transition-colors duration-200"
+                    className={`w-full px-4 py-3 border ${errors.message ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-orange-600 focus:border-transparent transition-colors duration-200 disabled:opacity-50`}
                     placeholder="Tell us about your project or requirements..."
                   />
+                  {errors.message && <p className="text-red-600 text-sm mt-1">{errors.message}</p>}
                 </div>
 
-                <button
-                  type="submit"
-                  className="w-full bg-terracotta-600 hover:bg-terracotta-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center"
-                >
-                  <Send className="mr-2 h-5 w-5" />
-                  Send Message
-                </button>
-              </form>
+                <form onSubmit={handleSubmit}>
+                  <button
+                    type="submit"
+                    disabled={submitStatus.isSubmitting}
+                    className="w-full bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {submitStatus.isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="mr-2 h-5 w-5" />
+                        Send Message
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Additional Information */}
-        <div className="mt-16 bg-gradient-to-br from-terracotta-50 to-cream-100 rounded-lg p-8 md:p-12 text-center">
+        <div className="mt-16 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-lg p-8 md:p-12 text-center">
           <h2 className="text-3xl font-serif font-bold text-gray-800 mb-6">
             Why Choose Ramaatranslationz?
           </h2>
