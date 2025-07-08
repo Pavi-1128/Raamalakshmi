@@ -47,7 +47,7 @@ const Services = () => {
 
   const otherServices = [
     'Translation Coaching',
-    'Puranic Content Consulting',
+    'Puranic Content Consulting (Free of Cost)',
     'Proofreading & Copy Editing',
     'Book Reviews',
     'Speech & Case Study Writing',
@@ -184,7 +184,18 @@ const Services = () => {
                     <div className="bg-purple-100 p-2 rounded-full mr-4">
                       <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
                     </div>
-                    <p className="text-gray-700">{service}</p>
+                    <p className="text-gray-700">
+                      {service.startsWith('Puranic Content Consulting') ? (
+                        <>
+                          Puranic Content Consulting{' '}
+                          <span className="inline-block bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded text-xs align-middle ml-1">
+                            Free of Cost
+                          </span>
+                        </>
+                      ) : (
+                        service
+                      )}
+                    </p>
                   </div>
                 ))}
               </div>
