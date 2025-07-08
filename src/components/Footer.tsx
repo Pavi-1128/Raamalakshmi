@@ -32,6 +32,11 @@ const Footer = () => {
                 <Mail className="h-5 w-5" />
               </a>
             </div>
+            <div className="mt-4">
+                <span className="inline-block bg-orange-100 text-orange-700 font-semibold px-3 py-1 rounded-full shadow-sm text-xs">
+                  Consultation timing: 11am to 5pm
+                </span>
+              </div>
           </div>
 
           {/* Quick Links */}
@@ -78,6 +83,7 @@ const Footer = () => {
                 <MessageCircle className="h-4 w-4 text-terracotta-500" />
                 <span className="text-gray-300">WhatsApp Available</span>
               </div>
+          
             </div>
           </div>
         </div>

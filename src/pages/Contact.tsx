@@ -119,6 +119,13 @@ const Contact = () => {
           </p>
         </div>
 
+        {/* Add consultation timing note below the header and above the contact grid */}
+        <div className="text-center mb-6">
+          <span className="inline-block bg-orange-100 text-orange-700 font-semibold px-4 py-2 rounded-full shadow-sm">
+            Consultation timing: 11am to 5pm
+          </span>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div>
