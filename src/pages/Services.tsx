@@ -31,7 +31,7 @@ const Services = () => {
   ];
 
   const languages = [
-    { name: 'Spoken Hindi', description: 'From basic conversation to advanced business communication' },
+    { name: 'Spoken Hindi', description: ' basic conversation ' },
     { name: 'Spoken English', description: 'Professional English for career advancement' },
     { name: 'Spoken Tamil', description: 'Connect with Tamil culture and heritage' },
     { name: 'Spoken Telugu', description: 'Master Telugu for personal and professional growth' },
@@ -43,14 +43,16 @@ const Services = () => {
     'English ⇄ Telugu',
     'Telugu ⇄ English',
     'English ⇄ Tamil',
+    'Hindi ⇄ Telgu',
   ];
 
   const otherServices = [
     'Translation Coaching',
-    'Puranic Content Consulting (Free of Cost)',
-    'Proofreading & Copy Editing',
+    'Puranic Content Consulting',
+    'Proofreading & Copy Editing [Tamil & Telgu]',
     'Book Reviews',
     'Speech & Case Study Writing',
+    'Content Editing & Content Creation [Tamil & Telgu]'
   ];
 
   return (
@@ -101,7 +103,7 @@ const Services = () => {
         {/* Language Training */}
         <section id="language-training" ref={languageRef} className="mb-16 scroll-mt-24">
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8">
+            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-8">
               <div className="flex items-center mb-4">
                 <Users className="h-8 w-8 mr-3" />
                 <h2 className="text-3xl font-serif font-bold">Language Training</h2>
@@ -114,7 +116,7 @@ const Services = () => {
             <div className="p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {languages.map((language, index) => (
-                  <div key={index} className="border-l-4 border-blue-600 pl-6">
+                  <div key={index} className=" bg-gray-100 h-20  rounded-lg border-l-4 border-blue-600 pl-6">
                     <h3 className="text-xl font-semibold text-gray-800 mb-2">{language.name}</h3>
                     <p className="text-gray-600">{language.description}</p>
                   </div>
@@ -125,13 +127,13 @@ const Services = () => {
                   <h4 className="font-semibold text-gray-800 mb-2">📝 Personalized Modules</h4>
                   <p className="text-gray-700">
                     E.g., a rice merchant wanting to connect with a Punjabi counterpart, 
-                    or a young professional needing confidence in English.
+                    or a young professional needs confidence in English.
                   </p>
                 </div>
                 <div className="bg-blue-50 p-6 rounded-lg">
                   <h4 className="font-semibold text-gray-800 mb-2">📲 WhatsApp-based Classes</h4>
                   <p className="text-gray-700">
-                    Flexible learning with recorded classes for general conversations.
+                    Flexible live learning and recorded  classes.
                   </p>
                 </div>
               </div>
@@ -154,7 +156,7 @@ const Services = () => {
             <div className="p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {bookServices.map((service, index) => (
-                  <div key={index} className="bg-green-50 p-6 rounded-lg text-center">
+                  <div key={index} className="bg-green-100 border-l-4 border-green-600 p-6 rounded-lg text-center">
                     <h3 className="text-lg font-semibold text-gray-800">{service}</h3>
                   </div>
                 ))}
@@ -188,9 +190,9 @@ const Services = () => {
                       {service.startsWith('Puranic Content Consulting') ? (
                         <>
                           Puranic Content Consulting{' '}
-                          <span className="inline-block bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded text-xs align-middle ml-1">
+                          {/* <span className="inline-block bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded text-xs align-middle ml-1">
                             Free of Cost
-                          </span>
+                          </span> */}
                         </>
                       ) : (
                         service
@@ -203,13 +205,13 @@ const Services = () => {
           </div>
         </section>
 
-        {/* Pine Art & Storytelling */}
+        {/* fine Art & Storytelling */}
         <section id="pine-art" ref={pineArtRef} className="mb-16 scroll-mt-24">
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <div className="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-8">
               <div className="flex items-center mb-4">
                 <Palette className="h-8 w-8 mr-3" />
-                <h2 className="text-3xl font-serif font-bold">Pine Art & Storytelling</h2>
+                <h2 className="text-3xl font-serif font-bold">Fine Art & Storytelling</h2>
               </div>
               <p className="text-lg opacity-90">
                 Freestyle sketches and storytelling drawn from the Puranas and world literature

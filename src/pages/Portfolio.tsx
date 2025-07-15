@@ -1,10 +1,12 @@
 import React from 'react';
 import { Book, Film, Star, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
+
 
 const Portfolio = () => {
   const bookTranslations = [
     {
-      title: 'Manimekalai Prasuram Publications',
+      title: 'Manimekalai Publications',
       location: 'Chennai',
       description: 'Comprehensive translation services for literary works',
       category: 'Literature',
@@ -34,6 +36,11 @@ const Portfolio = () => {
       description: 'Regional literature translation',
       category: 'Literature',
     },
+    {
+      title: 'Prema Prasuram',
+      description: 'Regional literature translation',
+      category: 'Literature',
+    },
   ];
 
   const mediaWork = [
@@ -47,7 +54,7 @@ const Portfolio = () => {
 
   const bookReviews = [
     {
-      title: 'Do Business Like a Monster',
+      title: 'Do Business Like a Monster - Prakash Sreenivasan',
       description: 'Insightful exploration of bold business thinking',
       type: 'Business Strategy',
     },
@@ -102,27 +109,36 @@ const Portfolio = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {bookTranslations.map((book, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <motion.div
+                key={index}
+                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 relative"
+                whileHover={{ scale: 1.05, y: -5 }}  // This will give the 'come to front' effect
+                whileTap={{ scale: 0.95 }}  // Optional: add a tap effect for when clicked
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              >
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      book.category === 'Literature' ? 'bg-blue-100 text-blue-800' :
-                      book.category === 'Spiritual' ? 'bg-purple-100 text-purple-800' :
-                      book.category === 'Philosophy' ? 'bg-green-100 text-green-800' :
-                      book.category === 'Astrology' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-pink-100 text-pink-800'
-                    }`}>
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${book.category === 'Literature'
+                          ? 'bg-blue-100 text-blue-800'
+                          : book.category === 'Spiritual'
+                            ? 'bg-purple-100 text-purple-800'
+                            : book.category === 'Philosophy'
+                              ? 'bg-green-100 text-green-800'
+                              : book.category === 'Astrology'
+                                ? 'bg-yellow-100 text-yellow-800'
+                                : 'bg-pink-100 text-pink-800'
+                        }`}
+                    >
                       {book.category}
                     </span>
                     <Book className="h-5 w-5 text-gray-400" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-800 mb-2">{book.title}</h3>
-                  {book.location && (
-                    <p className="text-sm text-gray-500 mb-2">{book.location}</p>
-                  )}
+                  {book.location && <p className="text-sm text-gray-500 mb-2">{book.location}</p>}
                   <p className="text-gray-600 text-sm">{book.description}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>

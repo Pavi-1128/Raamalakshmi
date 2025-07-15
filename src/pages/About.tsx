@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GraduationCap, Heart, Star, ArrowRight } from 'lucide-react';
-import founderImg from '../assets/founder.jpg';
+import Raamapic from '../assets/Raamapic.jpg';
 import cultureImg from '../assets/culture.jpg';
 import sketchImg from '../assets/sketch.jpg';
 
@@ -11,7 +11,7 @@ const About = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16 flex flex-col items-center">
-          <img src={founderImg} alt="Founder portrait" className="w-32 h-32 rounded-full object-cover shadow-lg mb-6" />
+          <img src={Raamapic} alt="Founder portrait" className="w-32 h-32 rounded-full object-cover shadow-lg mb-6" />
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-800 mb-6">
             About Ramaatranslationz
           </h1>
