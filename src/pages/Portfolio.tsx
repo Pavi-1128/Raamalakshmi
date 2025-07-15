@@ -38,7 +38,8 @@ const Portfolio = () => {
     },
     {
       title: 'Prema Prasuram',
-      description: 'Regional literature translation',
+      location: 'Chennai',
+      description: 'Literary translations across devotional and regional works.',
       category: 'Literature',
     },
   ];
