@@ -145,33 +145,7 @@ const Home: React.FC = () => {
           </p>
         </div>
       </section>
-
-      {/* Services */}
-      {/* <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-center text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4">
-            Our Services at a Glance
-          </h2>
-          <p className="text-center text-lg text-gray-600 max-w-2xl mx-auto mb-12">
-            Comprehensive language solutions tailored to your unique needs
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-lg shadow hover:shadow-lg text-center transition">
-                <img src={service.image} alt={service.title} className="h-12 w-12 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">{service.title}</h3>
-                <p className="text-gray-600 text-sm">{service.description}</p>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-12">
-            <Link to="/services" className="bg-terracotta-600 hover:bg-terracotta-700 text-white px-8 py-4 rounded-lg font-semibold inline-flex items-center">
-              View All Services <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </div>
-        </div>
-      </section> */}
-
+      
       <section className="py-16 bg-gray-50">
   <div className="container mx-auto px-4">
     <h2 className="text-center text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4">

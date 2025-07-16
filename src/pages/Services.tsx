@@ -349,7 +349,8 @@ const Services = () => {
     'Book Reviews',
     'Speech Writing',
     'Case Study Writing',
-    'Content Editing & Content Creation [Tamil & Telgu]'
+    'Content Editing & Content Creation [Tamil & Telgu]',
+    'Add Family Counseling and Community Social Work Counseling in other services'
   ];
 
   return (
