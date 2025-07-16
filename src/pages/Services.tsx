@@ -347,7 +347,8 @@ const Services = () => {
     'Puranic Content Consulting',
     'Proofreading & Copy Editing [Tamil & Telgu]',
     'Book Reviews',
-    'Speech & Case Study Writing',
+    'Speech Writing',
+    'Case Study Writing',
     'Content Editing & Content Creation [Tamil & Telgu]'
   ];
 

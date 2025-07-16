@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GraduationCap, Heart, Star, ArrowRight } from 'lucide-react';
 import Raamapic from '../assets/Raamapic.jpg';
 import cultureImg from '../assets/culture.jpg';
 import sketchImg from '../assets/sketch.jpg';
+import { motion } from 'framer-motion';
 
 const About = () => {
   return (
@@ -11,14 +13,32 @@ const About = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16 flex flex-col items-center">
-          <img src={Raamapic} alt="Founder portrait" className="w-32 h-32 rounded-full object-cover shadow-lg mb-6" />
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-800 mb-6">
+          <motion.img
+            src={Raamapic}
+            alt="Founder portrait"
+            className="w-32 h-32 rounded-full object-cover mb-6"
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
+            style={{ boxShadow: '0px 0px 15px 5px rgba(80, 76, 74, 0.7)' }}
+          />
+          <motion.h1
+            className="text-4xl md:text-5xl font-serif font-bold text-gray-800 mb-6"
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
             About Ramaatranslationz
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            A journey from homemaker to market researcher, and finally a passionate translator — 
+          </motion.h1>
+          <motion.p
+            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            A journey from homemaker to market researcher, and finally a passionate translator —
             my story began out of necessity and bloomed into a lifelong calling.
-          </p>
+          </motion.p>
         </div>
 
         {/* Founder's Story */}
@@ -40,7 +60,11 @@ const About = () => {
                   emotions, and entire cultures. What began as a profession became a passion, 
                   and what started as a passion became a calling to serve humanity.
                 </p>
-                <blockquote className="border-l-4 border-terracotta-600 pl-6 italic text-gray-600 text-lg">
+                <p className="text-gray-700 mb-6 leading-relaxed">
+                   I bow in gratitude to God, my loved ones, and well-wishers whose unwavering support has uplifted me countless times,
+                    filling me with a deep sense of fulfillment.
+                </p>
+                <blockquote className="border-l-4 border-terracotta-600 pl-6 italic text-gray-600 text-lg  leading-relaxed bg-terracotta-50 p-3 rounded-lg border-terracotta-200">
                   "Translation is not just about converting words from one language to another. 
                   It's about building bridges between hearts, minds, and cultures."
                 </blockquote>

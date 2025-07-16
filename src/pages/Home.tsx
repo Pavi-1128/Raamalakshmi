@@ -267,7 +267,7 @@ const Home: React.FC = () => {
                   key={`${client.name}-${idx}`} 
                   className="inline-flex flex-col items-center justify-center flex-shrink-0"
                 >
-                  <img 
+                  <img  
                     src={client.logo} 
                     alt={client.name} 
                     className="h-16 w-auto object-contain max-w-[120px]"
